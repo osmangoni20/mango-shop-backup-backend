@@ -141,7 +141,7 @@ client.connect(err => {
 
 // Delete Single Card Product
    app.get('/deleteCardProducts/:id', (req, res) => {
-    OrderCartCollection.deleteOne({_id:req.params.id})
+    OrderCartCollection.deleteOne({_id:ObjectId(`${req.params.id}`)})
       .then((result) => {
         console.log(result)
         res.send(result.deletedCount > 0)
@@ -153,7 +153,7 @@ client.connect(err => {
 app.get('/deleteCardProducts', (req, res) => {
   OrderCartCollection.deleteMany()
     .then((result) => {
-      console.log(result)
+      
       res.send(result.deletedCount > 0)
     })
 })
@@ -161,7 +161,7 @@ app.get('/deleteCardProducts', (req, res) => {
 // Card Product Update Quantity
   app.patch('/updateQuantity/:id', (req, res) => {
     console.log(req.params.id);
-    OrderCartCollection.updateOne({'_id': req.params.id},
+    OrderCartCollection.updateOne({_id: ObjectID(`${req.params.id}`)},
       {
         $set: { quantity: req.body.quantity}
       })
